@@ -3,6 +3,9 @@
 include 'includes/connect.php';
 
 $data = [];
+$sql = "SELECT * FROM composer ORDER BY id ASC";
+$results = $connection->query($sql);
+
 ?>
 
 <table>
@@ -13,12 +16,27 @@ $data = [];
         <th>Description</th>
         <th>Pays</th>
     </tr>
-    <?php foreach ($data as $composer) { ?>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-    <?php } ?>
+    <?php
+
+    foreach ($results->fetchAll(PDO::FETCH_ASSOC) as $data) {
+        echo '<tr>
+            <td> 
+            ' . $data['name'] . ' 
+            </td>
+            <td>
+             ' . $data['birth'] . ' 
+            </td>
+            <td> 
+            ' . $data['death'] . ' 
+            </td>
+            <td> 
+            ' . $data['description'] . ' 
+            </td>
+            <td> 
+            ' . $data['country'] . ' 
+            </td>
+        </tr>';
+    }
+
+    ?>
 </table>
